@@ -13,12 +13,57 @@
  * never 其他类型(包括null 和 undefined) 表示从不会出现的值
  */
 
+ /** any
  let x: any = 1
  x = 'I am who i am'
  x = false
 
- x.ifItExists()
- x.toFixed()
+// console.log(x.ifItExists()) // ifItExists is not a function
+x = 4
+console.log(x.toFixed(2))
 
  let arrayList: any[] = [1, false, 'fine']
  arrayList[1] = 100
+
+  */
+
+
+  /* Null 和 Undefined
+  // 启用 --strictNullChecks // 严格的空校验
+  let x: number;
+  x = 1;
+  // x = undefined;
+  // x = null;
+
+  // 启用 --strictNullChecks
+  let y: number | null | undefined;
+  y = 1;
+  y = undefined;
+  y = null;
+
+  */
+
+
+  /** never 类型 */
+let x: never;
+let y: number;
+
+// 运行错误，数字类型不能转为 never 类型
+// x = 123;
+
+// 运行正确，never 类型可以赋值给 never 类型
+x = (() => { throw new Error('exception')})();
+// x = new Error('exception'); // Type 'Error' is not assignable to type 'never'.
+
+// 运行正确，never 类型可以赋值给 数字类型
+y = (() => { throw new Error('exception')})();
+
+// 返回值为 never 的函数可以是抛出异常的情况
+function error(message: string): never {
+  throw new Error(message);
+}
+
+// 返回值为 never 的函数可以是无法被执行到的终止点的情况
+function loop(): never {
+  while (true) {}
+}
